@@ -8,7 +8,7 @@ Plasma Dash is designed to run on a Raspberry Pi. Specifically, it runs on [Rasp
 
 Plasma Dash's runs on Node 4 and up on OS X and Linux. It depends on [libpcap](http://www.tcpdump.org/):
 
-```
+```sh
 # Ubuntu and Debian
 sudo apt-get install libpcap-dev
 # Fedora and CentOS
@@ -17,7 +17,7 @@ sudo yum install libpcap-devel
 
 Install Plasma Dash in your project using npm:
 
-```
+```sh
 npm install --save plasma-dash
 ```
 
