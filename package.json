@@ -1,0 +1,25 @@
+{
+  "name": "plasma-dash",
+  "version": "0.0.1",
+  "description": "A small server that reacts to Amazon Dash buttons on your WiFi network",
+  "main": "build/PlasmaDash.js",
+  "engines": {
+    "node": ">=4"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ide/plasma-dash.git"
+  },
+  "keywords": [
+    "dash-button"
+  ],
+  "author": "James Ide",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ide/plasma-dash/issues"
+  },
+  "homepage": "https://github.com/ide/plasma-dash#readme"
+}
