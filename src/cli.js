@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import pcap from 'pcap';
 import yargs from 'yargs';
 
@@ -31,5 +32,6 @@ if (require.main === module) {
       let sourceMacAddress = MacAddresses.getEthernetSource(packet);
       console.log('Detected an ARP probe from %s', sourceMacAddress);
     });
+    console.log('Scanning for ARP probes...');
   }
 }
