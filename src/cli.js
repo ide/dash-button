@@ -26,12 +26,13 @@ if (require.main === module) {
   if (!commands.size) {
     console.log(parser.help());
   } else if (commands.has('scan')) {
-    let pcapSession = ArpProbes.createCaptureSession(argv.interface);
+    let interfaceName = argv.interface;
+    let pcapSession = ArpProbes.createCaptureSession(interfaceName);
     pcapSession.addListener('packet', rawPacket => {
       let packet = pcap.decode(rawPacket);
       let sourceMacAddress = MacAddresses.getEthernetSource(packet);
       console.log('Detected an ARP probe from %s', sourceMacAddress);
     });
-    console.log('Scanning for ARP probes...');
+    console.log('Scanning for ARP probes on %s...', interfaceName);
   }
 }
