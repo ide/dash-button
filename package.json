@@ -1,8 +1,8 @@
 {
-  "name": "plasma-dash",
+  "name": "dash-button",
   "version": "0.0.1",
   "description": "A small server that reacts to Amazon Dash buttons on your WiFi network",
-  "main": "build/PlasmaDash.js",
+  "main": "build/DashButton.js",
   "bin": {
     "plasma-dash": "build/cli.js"
   },
@@ -14,9 +14,20 @@
     "watch": "gulp watch",
     "test": "jest"
   },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "node"
+    ],
+    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "unmockedModulePathPatterns": [
+      "/node_modules/babel-runtime/"
+    ]
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ide/plasma-dash.git"
+    "url": "git+https://github.com/ide/dash-button.git"
   },
   "keywords": [
     "amazon",
@@ -26,21 +37,23 @@
   "author": "James Ide",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ide/plasma-dash/issues"
+    "url": "https://github.com/ide/dash-button/issues"
   },
-  "homepage": "https://github.com/ide/plasma-dash#readme",
+  "homepage": "https://github.com/ide/dash-button#readme",
   "devDependencies": {
     "babel-core": "^5.8.25",
     "babel-eslint": "^4.1.3",
+    "babel-jest": "^5.3.0",
     "eslint": "^1.6.0",
     "gulp": "gulpjs/gulp#4.0",
     "gulp-babel": "^5.2.1",
     "gulp-changed": "^1.3.0",
+    "jest-cli": "^0.5.10",
     "rimraf": "^2.4.3"
   },
   "dependencies": {
     "babel-runtime": "^5.8.25",
-    "pcap": "ide/node_pcap#node-4",
-    "yargs": "^3.26.0"
+    "pcap": "mranney/node_pcap",
+    "yargs": "^3.27.0"
   }
 }

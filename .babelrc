@@ -1,6 +1,7 @@
 {
   "whitelist": [
     "asyncToGenerator",
+    "es6.arrowFunctions",
     "es6.classes",
     "es6.destructuring",
     "es6.modules",
@@ -9,6 +10,7 @@
     "es6.spread",
     "es7.asyncFunctions",
     "es7.classProperties",
+    "es7.functionBind",
     "es7.trailingFunctionCommas",
     "flow",
     "runtime",

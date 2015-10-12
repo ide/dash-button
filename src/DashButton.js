@@ -21,7 +21,7 @@ function getPcapSession(interfaceName: string) {
   return pcapSession;
 }
 
-export default class PlasmaDash {
+export default class DashButton {
   constructor(macAddress: string, options?: Options = {}) {
     this._macAddress = macAddress;
     this._networkInterface = options.networkInterface ||
@@ -44,7 +44,7 @@ export default class PlasmaDash {
     this._dashListeners.add(guardedListener);
 
     return new Subscription(() => {
-      this._dashListeners.remove(guardedListener);
+      this._dashListeners.delete(guardedListener);
       if (!this._dashListeners.size) {
         let session = getPcapSession();
         session.removeListener('packet', this._packetListener);
@@ -58,7 +58,7 @@ export default class PlasmaDash {
   _createGuardedListener(listener) {
     return async function(...args) {
       try {
-        return await listener(...args);
+        await listener(...args);
       } catch (error) {
         return error;
       }
@@ -70,15 +70,15 @@ export default class PlasmaDash {
       return;
     }
 
+    // TODO: filter by MAC
     let packet = pcap.decode(rawPacket);
 
     this._isResponding = true;
     try {
       // The listeners are guarded so this should never throw, but wrap it in
       // try-catch to be defensive
-      await Promise.all(Array.from(this._dashListeners).map(
-        listener => listener(packet)
-      ));
+      let listeners = Array.from(this._dashListeners);
+      await Promise.all(listeners.map(listener => listener(packet)));
     } finally {
       this._isResponding = false;
     }
@@ -91,7 +91,7 @@ class Subscription {
   }
 
   remove() {
-    if (this._remove) {
+    if (!this._remove) {
       return;
     }
     this._remove();

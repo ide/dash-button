@@ -1,7 +1,7 @@
 import os from 'os';
 
-export default class NetworkInterfaces {
-  static getDefault() {
+export default {
+  getDefault() {
     let interfaces = os.networkInterfaces();
     let names = Object.keys(interfaces);
     for (let name of names) {
@@ -10,5 +10,5 @@ export default class NetworkInterfaces {
       }
     }
     return null;
-  }
-}
+  },
+};

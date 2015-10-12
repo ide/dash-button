@@ -17,6 +17,7 @@
     "Promise": false,
     "fetch": false,
     "jest": false,
+    "pit": false,
   },
 
   "rules": {
