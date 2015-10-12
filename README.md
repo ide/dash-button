@@ -94,6 +94,11 @@ You can add both normal and async functions. If you add an async function, Dash 
 ## API
 
 The code is the documentation for now. The basics are simple and are covered in the example above.
+### `DashButton`
+
+#### Constructor
+`new DashButton(macAddress: string, options?: Options = {})`
+
 
 ## Help Wanted
 
@@ -105,7 +110,7 @@ You probably can figure out what's going on with a packet capturing library or a
 
 ### Unit Tests
 
-Dash Button uses Jest for testing because it's all about mocking modules, which is perfect for Dash Button.
+The Travis CI tests are unreliable. The unit tests themselves are fine but there are warnings and errors about NAN when setting up the test environment. I'm not sure why that is and would like to fix it.
 
 ## Acknowledgements
 
