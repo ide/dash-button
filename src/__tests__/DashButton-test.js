@@ -49,11 +49,15 @@ describe('DashButton', () => {
     let button2 = new DashButton('66:77:88:99:aa:bb');
     button2.addListener(button2Listener);
 
-    // TODO: emit a mock packet and assert that the button listeners are/aren't called
-    let packet = null;
-    mockSession.emit('packet', packet);
+    let packet1 = null;
+    mockSession.emit('packet', packet1);
     expect(button1Listener.mock.calls.length).toBe(1);
-    // expect(button2Listener.mock.calls.length).toBe(0);
+    expect(button2Listener.mock.calls.length).toBe(0);
+
+    let packet2 = null;
+    mockSession.emit('packet', packet2);
+    expect(button1Listener.mock.calls.length).toBe(1);
+    expect(button2Listener.mock.calls.length).toBe(1);
   });
 
   pit(`waits for listeners for a prior packet to asynchronously complete ` +
