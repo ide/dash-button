@@ -4,6 +4,15 @@ Dash Button is a small server that reacts to Amazon Dash buttons on your WiFi ne
 
 Dash Button is designed to run on a Raspberry Pi. Specifically, it runs on [Raspbian](https://www.raspbian.org/) (Jessie or newer) and supports modern Node.js.
 
+- [Installation and Setup](#installation-and-setup)
+  1. [Setting Up Your Dash Button](#setting-up-your-dash-button)
+  2. [Finding the MAC Address of Your Dash Button](#finding-the-mac-address-of-your-dash-button)
+  3. [Telling Dash Button about Your Dash Button](#telling-dash-button-about-your-dash-button)
+  4. [Running Code When You Press Your Dash Button](#running-code-when-you-press-your-dash-button)
+- [Help Wanted](#help-wanted)
+- [Acknowledgements](#acknowledgements)
+- [License](#license)
+
 ## Installation and Setup
 
 Dash Button's runs on Node 4 and up on OS X and Linux. It depends on [libpcap](http://www.tcpdump.org/):
@@ -84,7 +93,7 @@ You can add both normal and async functions. If you add an async function, Dash 
 
 ## API
 
-The code is the documentation for now.
+The code is the documentation for now. The basics are simple and are covered in the example above.
 
 ## Help Wanted
 
