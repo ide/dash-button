@@ -1,6 +1,8 @@
 import assert from 'assert';
 import pcap from 'pcap';
 
+import ArpProbes from './ArpProbes';
+import MacAddresses from './MacAddresses';
 import NetworkInterfaces from './NetworkInterfaces';
 
 type Options = {
@@ -11,7 +13,7 @@ let pcapSession;
 
 function getPcapSession(interfaceName: string) {
   if (!pcapSession) {
-    pcapSession = pcap.createSession(interfaceName);
+    pcapSession = ArpProbes.createCaptureSession(interfaceName);
   } else {
     assert.equal(
       interfaceName, pcapSession.device_name,
@@ -70,8 +72,11 @@ export default class DashButton {
       return;
     }
 
-    // TODO: filter by MAC
     let packet = pcap.decode(rawPacket);
+    let macAddress = MacAddresses.getEthernetSource(packet);
+    if (macAddress !== this._macAddress) {
+      return;
+    }
 
     this._isResponding = true;
     try {

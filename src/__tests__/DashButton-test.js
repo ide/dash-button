@@ -1,5 +1,8 @@
 jest.dontMock('../DashButton');
+jest.dontMock('../ArpProbes');
+jest.dontMock('../MacAddresses');
 
+let assert = require('assert');
 let events = require('events');
 
 describe('DashButton', () => {
@@ -11,9 +14,8 @@ describe('DashButton', () => {
   let NetworkInterfaces;
 
   beforeEach(() => {
-    DashButton = require('../DashButton');
-
     pcap = require('pcap');
+    DashButton = require('../DashButton');
     NetworkInterfaces = require('../NetworkInterfaces');
 
     pcap.createSession.mockImplementation(() => createMockPcapSession());
@@ -49,12 +51,12 @@ describe('DashButton', () => {
     let button2 = new DashButton('66:77:88:99:aa:bb');
     button2.addListener(button2Listener);
 
-    let packet1 = null;
+    let packet1 = createMockArpProbe(MAC_ADDRESS);
     mockSession.emit('packet', packet1);
     expect(button1Listener.mock.calls.length).toBe(1);
     expect(button2Listener.mock.calls.length).toBe(0);
 
-    let packet2 = null;
+    let packet2 = createMockArpProbe('66:77:88:99:aa:bb');
     mockSession.emit('packet', packet2);
     expect(button1Listener.mock.calls.length).toBe(1);
     expect(button2Listener.mock.calls.length).toBe(1);
@@ -69,7 +71,7 @@ describe('DashButton', () => {
     let calls = 0;
     button.addListener(() => { calls++; });
 
-    let packet = null;
+    let packet = createMockArpProbe(MAC_ADDRESS);
     mockSession.emit('packet', packet);
     expect(calls).toBe(1);
     mockSession.emit('packet', packet);
@@ -106,7 +108,7 @@ describe('DashButton', () => {
       return listenerPromise;
     });
 
-    let packet = null;
+    let packet = createMockArpProbe(MAC_ADDRESS);
     expect(listenerPromise).not.toBeDefined();
     mockSession.emit('packet', packet);
     expect(listenerPromise).toBeDefined();
@@ -129,7 +131,7 @@ describe('DashButton', () => {
       await Promise.resolve();
     });
 
-    let packet = null;
+    let packet = createMockArpProbe(MAC_ADDRESS);
     expect(calls).toBe(0);
     mockSession.emit('packet', packet);
     expect(calls).toBe(2);
@@ -185,4 +187,33 @@ function createMockPcapSession() {
   let session = new events.EventEmitter();
   session.close = jest.genMockFunction();
   return session;
+}
+
+function createMockArpProbe(sourceMacAddress) {
+  let decimals = sourceMacAddress.split(':').map(hex => parseInt(hex, 16));
+  assert(decimals.length === 6, 'MAC addresses must be six bytes');
+
+  return {
+    link_type: 'LINKTYPE_ETHERNET',
+    header: new Buffer([
+      249, 133,  27,  86,  // Seconds
+      137, 239,   1,   0,  // Microseconds
+       42,   0,   0,   0,  // Captured length
+       42,   0,   0,   0,  // Total length
+    ]),
+    buf: new Buffer([
+      255, 255, 255, 255, 255, 255,  // Destination MAC address
+      ...decimals,                   // Source MAC address
+        8,   6,  // EtherType (0x0806 = ARP)
+        0,   1,  // HTYPE
+        8,   0,  // PTYPE
+        6,       // HLEN
+        4,       // PLEN
+        0,   1,  // Operation
+      ...decimals,                   // SHA
+        0,   0,   0,   0,            // SPA
+        0,   0,   0,   0,   0,   0,  // THA
+       10,   0,  10,  20,            // TPA
+    ]),
+  };
 }

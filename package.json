@@ -22,8 +22,11 @@
       "node"
     ],
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "testPathDirs": ["<rootDir>/src"],
     "unmockedModulePathPatterns": [
-      "/node_modules/babel-runtime/"
+      "/node_modules/babel-runtime/",
+      "/node_modules/lodash.*/",
+      "/node_modules/pcap/"
     ]
   },
   "repository": {
@@ -54,6 +57,7 @@
   },
   "dependencies": {
     "babel-runtime": "^5.8.25",
+    "lodash.padleft": "^3.1.1",
     "pcap": "mranney/node_pcap",
     "yargs": "^3.27.0"
   }
