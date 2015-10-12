@@ -9,6 +9,9 @@ Dash Button is designed to run on a Raspberry Pi. Specifically, it runs on [Rasp
   2. [Finding the MAC Address of Your Dash Button](#finding-the-mac-address-of-your-dash-button)
   3. [Telling Dash Button about Your Dash Button](#telling-dash-button-about-your-dash-button)
   4. [Running Code When You Press Your Dash Button](#running-code-when-you-press-your-dash-button)
+- [API](#api)
+  - [DashButton](#dash-button)
+  - [Subscription](#subscription)
 - [Help Wanted](#help-wanted)
 - [Acknowledgements](#acknowledgements)
 - [License](#license)
@@ -93,7 +96,30 @@ You can add both normal and async functions. If you add an async function, Dash 
 
 ## API
 
-The code is the documentation for now. The basics are simple and are covered in the example above.
+### DashButton
+A `DashButton` listens to presses from a single Dash button with a specified MAC address. See the setup instructions for how to learn your Dash button's MAC address by scanning for ARP probes.
+
+#### Constructor
+`constructor(macAddress: string, options?: Options = {})`
+
+Creates a new `DashButton` object that listens to presses from the Dash button with the given MAC address. The supported options are:
+
+- `networkInterface`: name of the network interface on which to listen, like "en0" or "wlan0". See `ifconfig` for the list of interfaces on your computer. Defaults to the first external interface.
+
+#### addListener
+`addListener(listener): Subscription`
+
+Adds a listener function that is invoked when this `DashButton` detects a press from your Dash button. Use the returned subscription to remove the listener.
+
+**The listener may be an async function.** If you add an async listener, this `DashButton` will ignore subsequent presses from your Dash button until the async function completes. When you have multiple async listeners, the `DashButton` will wait for all of them to complete, even if some throw errors, before listening to any new presses. This lets you conveniently implement your own policy for throttling presses.
+
+### Subscription
+Subscriptions are returned from `DashButton.addListener` and give you a convenient way to remove listeners.
+
+#### remove
+`remove()`
+
+Removes the listener that is subscribed to the `DashButton`. It will release its reference to the listener's closure to mitigate memory leaks. Calling `remove()` more than once on the same subscription is OK.
 
 ## Help Wanted
 
