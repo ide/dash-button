@@ -92,7 +92,7 @@ The code is the documentation for now.
 
 The coolest feature would be to control the light on the Dash button so it turns green. Currently it turns white when broadcasting an ARP packet and then red when it doesn't receive a response from Amazon. But when you use a Dash button in the normal way, the light turns green after Amazon has placed your order. It would be great and make custom Dash apps feel more responsive if Dash Button could send back some kind of packet to trick the Dash button's light into turning green.
 
-You probably can figure out what's going on with a packet capturing library or a tool like Wireshark. Once we know what Amazon's response looks like, then we need to spoof it.
+You probably can figure out what's going on with a packet capturing library or a tool like Wireshark. Once we know what Amazon's response looks like, then we need to spoof it. This might be impossible because of TLS but it's worth a shot.
 
 ### Unit Tests
 
