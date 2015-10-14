@@ -10,7 +10,7 @@ Dash Button is designed to run on a Raspberry Pi. Specifically, it runs on [Rasp
   3. [Telling Dash Button about Your Dash Button](#telling-dash-button-about-your-dash-button)
   4. [Running Code When You Press Your Dash Button](#running-code-when-you-press-your-dash-button)
 - [API](#api)
-  - [DashButton](#dash-button)
+  - [DashButton](#dashbutton)
   - [Subscription](#subscription)
 - [Help Wanted](#help-wanted)
 - [Acknowledgements](#acknowledgements)
