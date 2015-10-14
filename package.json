@@ -14,7 +14,7 @@
   },
   "scripts": {
     "build": "gulp build",
-    "prepublish": "gulp build",
+    "prepublish": "gulp clean && gulp build",
     "test": "jest",
     "watch": "gulp watch"
   },
