@@ -1,6 +1,6 @@
-# Dash Button [![Build Status](https://travis-ci.org/ide/dash-button.svg?branch=master)](https://travis-ci.org/ide/dash-button) [![npm version](https://badge.fury.io/js/dash-button.svg)](http://badge.fury.io/js/dash-button)
+# Dash Button for Node [![Build Status](https://travis-ci.org/ide/dash-button.svg?branch=master)](https://travis-ci.org/ide/dash-button) [![npm version](https://badge.fury.io/js/dash-button.svg)](http://badge.fury.io/js/dash-button)
 
-Dash Button is a small server that reacts to Amazon Dash buttons on your WiFi network. You can write event handlers that Dash Button will run when it detects someone has pressed your Dash button.
+Dash Button is a small Node server that reacts to Amazon Dash buttons on your WiFi network. You can write event handlers that Dash Button will run when it detects someone has pressed your Dash button.
 
 Dash Button is designed to run on a Raspberry Pi. Specifically, it runs on [Raspbian](https://www.raspbian.org/) (Jessie or newer) and supports modern Node.js.
 
