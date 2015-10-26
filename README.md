@@ -1,4 +1,4 @@
-# Dash Button for Node [![Build Status](https://travis-ci.org/ide/dash-button.svg?branch=master)](https://travis-ci.org/ide/dash-button) [![npm version](https://badge.fury.io/js/dash-button.svg)](http://badge.fury.io/js/dash-button)
+# Dash Button for Node [![Circle CI](https://circleci.com/gh/ide/dash-button/tree/master.svg)](https://circleci.com/gh/ide/dash-button/tree/master) [![npm version](https://badge.fury.io/js/dash-button.svg)](http://badge.fury.io/js/dash-button)
 
 Dash Button is a small Node server that reacts to Amazon Dash buttons on your WiFi network. You can write event handlers that Dash Button will run when it detects someone has pressed your Dash button.
 
@@ -128,10 +128,6 @@ Removes the listener that is subscribed to the `DashButton`. It will release its
 The coolest feature would be to control the light on the Dash button so it turns green. Currently it turns white when broadcasting an ARP packet and then red when it doesn't receive a response from Amazon. But when you use a Dash button in the normal way, the light turns green after Amazon has placed your order. It would be great and make custom Dash apps feel more responsive if Dash Button could send back some kind of packet to trick the Dash button's light into turning green.
 
 You probably can figure out what's going on with a packet capturing library or a tool like Wireshark. Once we know what Amazon's response looks like, then we need to spoof it. This might be impossible because of TLS but it's worth a shot.
-
-### Unit Tests
-
-The Travis CI environment is unreliable and sometimes produces errors or warnings about NAN while building this package's dependencies. The unit tests themselves are fine but I would like to fix the build errors.
 
 ## Acknowledgements
 
