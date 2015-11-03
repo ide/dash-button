@@ -1,4 +1,4 @@
-# Dash Button for Node [![Circle CI](https://circleci.com/gh/ide/dash-button/tree/master.svg)](https://circleci.com/gh/ide/dash-button/tree/master) [![npm version](https://badge.fury.io/js/dash-button.svg)](http://badge.fury.io/js/dash-button)
+# Dash Button for Node [![Circle CI](https://circleci.com/gh/ide/dash-button/tree/master.svg?style=shield)](https://circleci.com/gh/ide/dash-button/tree/master) [![npm version](https://badge.fury.io/js/dash-button.svg)](http://badge.fury.io/js/dash-button)
 
 Dash Button is a small Node server that reacts to Amazon Dash buttons on your WiFi network. You can write event handlers that Dash Button will run when it detects someone has pressed your Dash button.
 
