@@ -98,13 +98,13 @@ describe('DashButton', () => {
 
     let listenerPromise;
     button.addListener(() => {
-      listenerPromise = async () => {
+      listenerPromise = (async () => {
         // Wait for the other listeners to throw
         await Promise.resolve();
         expect(errorCount).toBe(2);
         await Promise.resolve();
         return 'success';
-      }();
+      })();
       return listenerPromise;
     });
 
