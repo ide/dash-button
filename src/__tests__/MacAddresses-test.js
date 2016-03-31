@@ -1,4 +1,4 @@
-jest.dontMock('../MacAddresses');
+jest.unmock('../MacAddresses');
 
 describe('MacAddresses', () => {
   let MacAddresses = require('../MacAddresses');

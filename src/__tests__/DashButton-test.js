@@ -1,6 +1,6 @@
-jest.dontMock('../DashButton');
-jest.dontMock('../ArpProbes');
-jest.dontMock('../MacAddresses');
+jest.unmock('../DashButton');
+jest.unmock('../ArpProbes');
+jest.unmock('../MacAddresses');
 
 let assert = require('assert');
 let events = require('events');

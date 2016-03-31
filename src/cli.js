@@ -14,9 +14,9 @@ if (require.main === module) {
       '$0 scan -i wlan0',
       'Scan for ARP probes on the given network interface'
     )
-    .help('h')
+    .help()
     .alias('h', 'help')
-    .version(() => require('../package.json').version)
+    .version()
     .alias('i', 'interface')
     .nargs('i', 1)
     .default('i', NetworkInterfaces.getDefault())
@@ -24,7 +24,7 @@ if (require.main === module) {
   let { argv } = parser;
   let commands = new Set(argv._);
   if (!commands.size) {
-    console.log(parser.help());
+    parser.showHelp();
   } else if (commands.has('scan')) {
     let interfaceName = argv.interface;
     let pcapSession = ArpProbes.createCaptureSession(interfaceName);

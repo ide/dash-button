@@ -1,4 +1,4 @@
-jest.dontMock('../ArpProbes');
+jest.unmock('../ArpProbes');
 
 describe('ArpProbes', () => {
   let pcap;

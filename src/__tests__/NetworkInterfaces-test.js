@@ -1,4 +1,4 @@
-jest.dontMock('../NetworkInterfaces');
+jest.unmock('../NetworkInterfaces');
 jest.mock('os');
 
 describe('NetworkInterfaces', () => {
