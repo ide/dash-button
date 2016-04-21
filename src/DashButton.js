@@ -58,7 +58,7 @@ export default class DashButton {
   }
 
   _createGuardedListener(listener) {
-    return async function(...args) {
+    return async(...args) => {
       try {
         await listener(...args);
       } catch (error) {
