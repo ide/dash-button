@@ -70,7 +70,7 @@
     "babel-plugin-transform-runtime": "^6.9.0",
     "babel-plugin-transform-strict-mode": "^6.3.13",
     "eslint": "^2.13.1",
-    "eslint-config-exponent": "^1.0.12",
+    "eslint-config-exponent": "^2.0.0",
     "gulp": "gulpjs/gulp#4.0",
     "gulp-babel": "^6.1.1",
     "gulp-changed": "^1.3.0",
