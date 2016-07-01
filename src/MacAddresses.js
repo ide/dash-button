@@ -7,7 +7,7 @@ let MacAddresses = {
 
   decimalToHex(numbers: Array<Number>): string {
     let hexStrings = numbers.map(decimal =>
-      padStart(decimal.toString(16), 2, '0')
+      padStart(decimal.toString(16), 2, '0'),
     );
     return hexStrings.join(':');
   },
