@@ -62,7 +62,7 @@ describe('DashButton', () => {
     expect(button2Listener.mock.calls.length).toBe(1);
   });
 
-  pit(`waits for listeners for a prior packet to asynchronously complete ` +
+  it(`waits for listeners for a prior packet to asynchronously complete ` +
      `before handling any new packets`, async () => {
     let mockSession = createMockPcapSession();
     pcap.createSession.mockReturnValue(mockSession);
@@ -81,7 +81,7 @@ describe('DashButton', () => {
     expect(calls).toBe(2);
   });
 
-  pit(`waits for all listeners even if some threw an error`, async () => {
+  it(`waits for all listeners even if some threw an error`, async () => {
     let mockSession = createMockPcapSession();
     pcap.createSession.mockReturnValue(mockSession);
 
