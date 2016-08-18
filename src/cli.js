@@ -17,10 +17,13 @@ if (require.main === module) {
     .help()
     .alias('h', 'help')
     .version()
-    .alias('i', 'interface')
-    .nargs('i', 1)
-    .default('i', NetworkInterfaces.getDefault())
-    .describe('i', 'The network interface on which to listen');
+    .option('i', {
+      alias: 'interface',
+      nargs: 1,
+      default: NetworkInterfaces.getDefault(),
+      describe: 'The network interface on which to listen',
+      global: true,
+    });
   let { argv } = parser;
   let commands = new Set(argv._);
   if (!commands.size) {
