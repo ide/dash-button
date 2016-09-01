@@ -1,14 +1,10 @@
-jest.unmock('../ArpProbes');
+import pcap from 'pcap';
+
+import ArpProbes from '../ArpProbes';
+
+jest.mock('pcap');
 
 describe('ArpProbes', () => {
-  let pcap;
-  let ArpProbes;
-
-  beforeEach(() => {
-    pcap = require('pcap');
-    ArpProbes = require('../ArpProbes');
-  });
-
   it(`creates a capture session for ARP probes`, () => {
     ArpProbes.createCaptureSession('en0');
     expect(pcap.createSession.mock.calls.length).toBe(1);

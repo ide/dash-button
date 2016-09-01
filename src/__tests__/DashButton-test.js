@@ -1,9 +1,8 @@
-jest.unmock('../DashButton');
-jest.unmock('../ArpProbes');
-jest.unmock('../MacAddresses');
+import assert from 'assert';
+import events from 'events';
 
-let assert = require('assert');
-let events = require('events');
+jest.mock('pcap');
+jest.mock('../NetworkInterfaces');
 
 describe('DashButton', () => {
   const MAC_ADDRESS = '00:11:22:33:44:55';
@@ -20,6 +19,10 @@ describe('DashButton', () => {
 
     pcap.createSession.mockImplementation(() => createMockPcapSession());
     NetworkInterfaces.getDefault.mockReturnValue(NETWORK_INTERFACE);
+  });
+
+  afterEach(() => {
+    jest.resetModules();
   });
 
   it(`creates a pcap session the first time a listener is added`, () => {

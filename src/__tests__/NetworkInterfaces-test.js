@@ -1,15 +1,10 @@
-jest.unmock('../NetworkInterfaces');
+import os from 'os';
+
+import NetworkInterfaces from '../NetworkInterfaces';
+
 jest.mock('os');
 
 describe('NetworkInterfaces', () => {
-  let os;
-  let NetworkInterfaces;
-
-  beforeEach(() => {
-    os = require('os');
-    NetworkInterfaces = require('../NetworkInterfaces');
-  });
-
   it(`returns null if it can't find an external interface`, () => {
     os.networkInterfaces.mockImplementation(() => {
       return { lo0: loopbackInterfaces };

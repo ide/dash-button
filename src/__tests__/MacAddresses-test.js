@@ -1,8 +1,6 @@
-jest.unmock('../MacAddresses');
+import MacAddresses from '../MacAddresses';
 
 describe('MacAddresses', () => {
-  let MacAddresses = require('../MacAddresses');
-
   it(`converts arrays of decimal numbers to hex strings`, () => {
     let decimals = [115, 107, 32, 146, 92, 19];
     let hex = MacAddresses.decimalToHex(decimals);
