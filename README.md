@@ -35,7 +35,7 @@ npm install --save dash-button
 
 You will need to configure Dash Button with the MAC address of each of your Dash buttons, plus code to run when you press them.
 
-The examples here use ES2016. You can run them with Babel configured for Stage 0 or just manually translate the code to whatever programming language you like as long as it runs on Node.
+The examples here use ES2017. You can run them with Babel configured for ES2017 or just manually translate the code to whatever programming language you like as long as it runs on Node.
 
 ### Setting Up Your Dash Button
 
