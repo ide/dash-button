@@ -62,7 +62,7 @@
     "babel-plugin-transform-function-bind": "^6.3.13",
     "babel-plugin-transform-runtime": "^6.15.0",
     "eslint": "^3.4.0",
-    "eslint-config-exponent": "^3.0.1",
+    "eslint-config-exponent": "^4.0.0",
     "eslint-plugin-babel": "^3.3.0",
     "gulp": "gulpjs/gulp#4.0",
     "gulp-babel": "^6.1.1",
