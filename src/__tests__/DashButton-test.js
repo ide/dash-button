@@ -68,6 +68,13 @@ describe('DashButton', () => {
   it(`waits for listeners for a prior packet to asynchronously complete ` +
      `before handling any new packets`, async () => {
     let mockSession = createMockPcapSession();
+    let listenerCompletion = null;
+    let originalAddListener = mockSession.addListener;
+    mockSession.addListener = function addListener(eventName, listener) {
+      originalAddListener.call(this, eventName, function(...args) {
+        listenerCompletion = listener.apply(this, args);
+      });
+    };
     pcap.createSession.mockReturnValue(mockSession);
 
     let button = new DashButton(MAC_ADDRESS);
@@ -77,9 +84,10 @@ describe('DashButton', () => {
     let packet = createMockArpProbe(MAC_ADDRESS);
     mockSession.emit('packet', packet);
     expect(calls).toBe(1);
+    let firstListenerCompletion = listenerCompletion;
     mockSession.emit('packet', packet);
     expect(calls).toBe(1);
-    await Promise.resolve();
+    await firstListenerCompletion;
     mockSession.emit('packet', packet);
     expect(calls).toBe(2);
   });
