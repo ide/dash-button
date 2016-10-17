@@ -9,10 +9,10 @@ import Packets from './Packets';
 if (require.main === module) {
   let parser = yargs
     .usage('Usage: $0 <command> [options]')
-    .command('scan', 'Scan for ARP probes')
+    .command('scan', 'Scan for DHCP requests and ARP probes')
     .example(
       '$0 scan -i wlan0',
-      'Scan for ARP probes on the given network interface',
+      'Scan for DHCP requests and ARP probes on the given network interface',
     )
     .help()
     .alias('h', 'help')
@@ -35,8 +35,8 @@ if (require.main === module) {
       let packet = pcap.decode(rawPacket);
       // console.log('Buffer:', packet.payload.payload.payload.data.toString('hex'));
       let sourceMacAddress = MacAddresses.getEthernetSource(packet);
-      console.log('Detected an ARP probe from %s', sourceMacAddress);
+      console.log('Detected a DHCP request or ARP probe from %s', sourceMacAddress);
     });
-    console.log('Scanning for ARP probes on %s...', interfaceName);
+    console.log('Scanning for DHCP requests and ARP probes on %s...', interfaceName);
   }
 }

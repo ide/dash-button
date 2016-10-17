@@ -43,7 +43,7 @@ Follow Amazon's instructions to add your WiFi credentials to your Dash button, b
 
 ### Finding the MAC Address of Your Dash Button
 
-The dash-button package includes a script that prints the MAC addresses of devices sending ARP probes, which the Dash button emits when pressed. Use this to learn the MAC address of your Dash button by pressing it.
+The dash-button package includes a script that prints the MAC addresses of devices sending DHCP requests or ARP probes, which the Dash button emits when pressed. Use this to learn the MAC address of your Dash button by pressing it.
 
 Add a new script to the `scripts` section of your package.json file:
 
@@ -97,7 +97,7 @@ You can add both normal and async functions. If you add an async function, Dash 
 ## API
 
 ### DashButton
-A `DashButton` listens to presses from a single Dash button with a specified MAC address. See the setup instructions for how to learn your Dash button's MAC address by scanning for ARP probes.
+A `DashButton` listens to presses from a single Dash button with a specified MAC address. See the setup instructions for how to learn your Dash button's MAC address by scanning for DHCP requests and ARP probes.
 
 #### Constructor
 `constructor(macAddress: string, options?: Options = {})`
@@ -125,7 +125,7 @@ Removes the listener that is subscribed to the `DashButton`. It will release its
 
 ### Green Light
 
-The coolest feature would be to control the light on the Dash button so it turns green. Currently it turns white when broadcasting an ARP packet and then red when it doesn't receive a response from Amazon. But when you use a Dash button in the normal way, the light turns green after Amazon has placed your order. It would be great and make custom Dash apps feel more responsive if Dash Button could send back some kind of packet to trick the Dash button's light into turning green.
+The coolest feature would be to control the light on the Dash button so it turns green. Currently it turns white when broadcasting a DHCP request or ARP packet and then red when it doesn't receive a response from Amazon. But when you use a Dash button in the normal way, the light turns green after Amazon has placed your order. It would be great and make custom Dash apps feel more responsive if Dash Button could send back some kind of packet to trick the Dash button's light into turning green.
 
 You probably can figure out what's going on with a packet capturing library or a tool like Wireshark. Once we know what Amazon's response looks like, then we need to spoof it. This might be impossible because of TLS but it's worth a shot.
 

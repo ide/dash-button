@@ -2822,9 +2822,9 @@ path-type@^1.0.0:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
 
-pcap@mranney/node_pcap#4634a39:
+pcap@mranney/node_pcap#d920204:
   version "2.0.0"
-  resolved "https://codeload.github.com/mranney/node_pcap/tar.gz/4634a39"
+  resolved "https://codeload.github.com/mranney/node_pcap/tar.gz/d920204"
   dependencies:
     nan "^2.0.9"
     socketwatcher "^0.3.0"
