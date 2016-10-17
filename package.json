@@ -16,6 +16,7 @@
     "build": "gulp build",
     "lint": "eslint src",
     "prepublish": "gulp clean && gulp build",
+    "start": "node build/cli.js",
     "test": "jest",
     "watch": "gulp watch"
   },
@@ -47,7 +48,7 @@
   "dependencies": {
     "babel-runtime": "^6.11.6",
     "lodash": "^4.15.0",
-    "pcap": "mranney/node_pcap#4634a39",
+    "pcap": "mranney/node_pcap#d920204",
     "yargs": "^6.0.0"
   },
   "devDependencies": {

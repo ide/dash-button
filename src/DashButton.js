@@ -1,9 +1,9 @@
 import assert from 'assert';
 import pcap from 'pcap';
 
-import ArpProbes from './ArpProbes';
 import MacAddresses from './MacAddresses';
 import NetworkInterfaces from './NetworkInterfaces';
+import Packets from './Packets';
 
 type Options = {
   networkInterface?: string,
@@ -13,7 +13,7 @@ let pcapSession;
 
 function getPcapSession(interfaceName: string) {
   if (!pcapSession) {
-    pcapSession = ArpProbes.createCaptureSession(interfaceName);
+    pcapSession = Packets.createCaptureSession(interfaceName);
   } else {
     assert.equal(
       interfaceName, pcapSession.device_name,

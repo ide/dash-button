@@ -2,9 +2,9 @@
 import pcap from 'pcap';
 import yargs from 'yargs';
 
-import ArpProbes from './ArpProbes';
 import MacAddresses from './MacAddresses';
 import NetworkInterfaces from './NetworkInterfaces';
+import Packets from './Packets';
 
 if (require.main === module) {
   let parser = yargs
@@ -30,9 +30,10 @@ if (require.main === module) {
     parser.showHelp();
   } else if (commands.has('scan')) {
     let interfaceName = argv.interface;
-    let pcapSession = ArpProbes.createCaptureSession(interfaceName);
+    let pcapSession = Packets.createCaptureSession(interfaceName);
     pcapSession.addListener('packet', rawPacket => {
       let packet = pcap.decode(rawPacket);
+      // console.log('Buffer:', packet.payload.payload.payload.data.toString('hex'));
       let sourceMacAddress = MacAddresses.getEthernetSource(packet);
       console.log('Detected an ARP probe from %s', sourceMacAddress);
     });
