@@ -13,7 +13,7 @@ dependencies:
     - curl -o- -L https://yarnpkg.com/install.sh | bash
     - yarn global add codecov
   override:
-    - yarn install
+    - yarn install --pure-lockfile
 
 test:
   pre:
