@@ -2,7 +2,7 @@ machine:
   pre:
     - mkdir ~/.yarn-cache
   node:
-    version: 6
+    version: 7
 
 dependencies:
   cache_directories:
