@@ -54,7 +54,7 @@
   "devDependencies": {
     "babel-core": "^6.18.2",
     "babel-eslint": "^7.0.0",
-    "babel-jest": "^17.0.0",
+    "babel-jest": "^17.0.2",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-syntax-trailing-function-commas": "^6.13.0",
     "babel-plugin-transform-async-to-generator": "^6.4.6",
