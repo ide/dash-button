@@ -1,19 +1,17 @@
 machine:
-  pre:
-    - mkdir ~/.yarn-cache
   node:
     version: 7
 
 dependencies:
   cache_directories:
-    - ~/.yarn-cache
+    - ~/.cache/yarn
   pre:
     - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 20
     - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 20
     - curl -o- -L https://yarnpkg.com/install.sh | bash
     - yarn global add codecov
   override:
-    - yarn
+    - yarn --force
 
 test:
   pre:
