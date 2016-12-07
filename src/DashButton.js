@@ -35,7 +35,7 @@ export default class DashButton {
 
   addListener(listener): Subscription {
     if (!this._dashListeners.size) {
-      let session = getPcapSession();
+      let session = getPcapSession(this._networkInterface);
       session.addListener('packet', this._packetListener);
     }
 
@@ -48,7 +48,7 @@ export default class DashButton {
     return new Subscription(() => {
       this._dashListeners.delete(guardedListener);
       if (!this._dashListeners.size) {
-        let session = getPcapSession();
+        let session = getPcapSession(this._networkInterface);
         session.removeListener('packet', this._packetListener);
         if (!session.listenerCount('packet')) {
           session.close();
