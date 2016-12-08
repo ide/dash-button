@@ -17,7 +17,7 @@ describe('DashButton', () => {
     DashButton = require('../DashButton');
     NetworkInterfaces = require('../NetworkInterfaces');
 
-    pcap.createSession.mockImplementation(() => createMockPcapSession());
+    pcap.createSession.mockImplementation(() => createMockPcapSession(NETWORK_INTERFACE));
     NetworkInterfaces.getDefault.mockReturnValue(NETWORK_INTERFACE);
   });
 
@@ -33,6 +33,7 @@ describe('DashButton', () => {
   });
 
   it(`shares pcap sessions amongst buttons`, () => {
+
     let button1 = new DashButton(MAC_ADDRESS);
     button1.addListener(() => {});
 
@@ -43,7 +44,7 @@ describe('DashButton', () => {
   });
 
   it(`notifies the appropriate listeners for each packet`, () => {
-    let mockSession = createMockPcapSession();
+    let mockSession = createMockPcapSession(NETWORK_INTERFACE);
     pcap.createSession.mockReturnValue(mockSession);
 
     let button1Listener = jest.genMockFunction();
@@ -149,7 +150,7 @@ describe('DashButton', () => {
   });
 
   it(`removes packet listeners when a button has no more listeners`, () => {
-    let mockSession = createMockPcapSession();
+    let mockSession = createMockPcapSession(NETWORK_INTERFACE);
     pcap.createSession.mockReturnValue(mockSession);
 
     let button = new DashButton(MAC_ADDRESS);
@@ -164,7 +165,7 @@ describe('DashButton', () => {
   });
 
   it(`doesn't throw if you remove a subscription twice`, () => {
-    let mockSession = createMockPcapSession();
+    let mockSession = createMockPcapSession(NETWORK_INTERFACE);
     pcap.createSession.mockReturnValue(mockSession);
 
     let button = new DashButton(MAC_ADDRESS);
@@ -176,7 +177,7 @@ describe('DashButton', () => {
   });
 
   it(`closes the pcap session when no more buttons are listening`, () => {
-    let mockSession = createMockPcapSession();
+    let mockSession = createMockPcapSession(NETWORK_INTERFACE);
     pcap.createSession.mockReturnValue(mockSession);
 
     let button1Listener = jest.genMockFunction();
@@ -194,9 +195,10 @@ describe('DashButton', () => {
   });
 });
 
-function createMockPcapSession() {
+function createMockPcapSession(networkInterface) {
   let session = new events.EventEmitter();
   session.close = jest.genMockFunction();
+  session.device_name = networkInterface;
   return session;
 }
 
