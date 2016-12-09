@@ -1,6 +1,6 @@
 {
   "name": "dash-button",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A small server that reacts to Amazon Dash buttons on your WiFi network",
   "main": "build/DashButton.js",
   "files": [
