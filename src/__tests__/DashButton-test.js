@@ -17,7 +17,6 @@ describe('DashButton', () => {
     DashButton = require('../DashButton');
     NetworkInterfaces = require('../NetworkInterfaces');
 
-    pcap.createSession.mockImplementation(() => createMockPcapSession());
     NetworkInterfaces.getDefault.mockReturnValue(NETWORK_INTERFACE);
   });
 
@@ -42,9 +41,25 @@ describe('DashButton', () => {
     expect(pcap.createSession.mock.calls.length).toBe(1);
   });
 
+  it(`creates a pcap session on the default interface`, () => {
+    let button = new DashButton(MAC_ADDRESS);
+    button.addListener(() => {});
+
+    expect(pcap.createSession.mock.calls.length).toBe(1);
+    expect(pcap.createSession.mock.calls[0][0]).toBe(NETWORK_INTERFACE);
+  });
+
+  it(`creates a pcap session on the specified interface`, () => {
+    let button = new DashButton(MAC_ADDRESS, { networkInterface: 'wlan0' });
+    button.addListener(() => {});
+
+    expect(pcap.createSession.mock.calls.length).toBe(1);
+    expect(pcap.createSession.mock.calls[0][0]).toBe('wlan0');
+  });
+
   it(`notifies the appropriate listeners for each packet`, () => {
-    let mockSession = createMockPcapSession();
-    pcap.createSession.mockReturnValue(mockSession);
+    let mockSession = pcap.createSession(NetworkInterfaces.getDefault());
+    pcap.createSession.mockReturnValueOnce(mockSession);
 
     let button1Listener = jest.genMockFunction();
     let button2Listener = jest.genMockFunction();
@@ -67,7 +82,7 @@ describe('DashButton', () => {
 
   it(`waits for listeners for a prior packet to asynchronously complete ` +
      `before handling any new packets`, async () => {
-    let mockSession = createMockPcapSession();
+    let mockSession = pcap.createSession(NetworkInterfaces.getDefault());
     let listenerCompletion = null;
     let originalAddListener = mockSession.addListener;
     mockSession.addListener = function addListener(eventName, listener) {
@@ -75,7 +90,7 @@ describe('DashButton', () => {
         listenerCompletion = listener.apply(this, args);
       });
     };
-    pcap.createSession.mockReturnValue(mockSession);
+    pcap.createSession.mockReturnValueOnce(mockSession);
 
     let button = new DashButton(MAC_ADDRESS);
     let calls = 0;
@@ -93,8 +108,8 @@ describe('DashButton', () => {
   });
 
   it(`waits for all listeners even if some threw an error`, async () => {
-    let mockSession = createMockPcapSession();
-    pcap.createSession.mockReturnValue(mockSession);
+    let mockSession = pcap.createSession(NetworkInterfaces.getDefault());
+    pcap.createSession.mockReturnValueOnce(mockSession);
 
     let button = new DashButton(MAC_ADDRESS);
     let errorCount = 0;
@@ -128,8 +143,8 @@ describe('DashButton', () => {
   });
 
   it(`runs its async listeners concurrently`, () => {
-    let mockSession = createMockPcapSession();
-    pcap.createSession.mockReturnValue(mockSession);
+    let mockSession = pcap.createSession(NetworkInterfaces.getDefault());
+    pcap.createSession.mockReturnValueOnce(mockSession);
 
     let button = new DashButton(MAC_ADDRESS);
     let calls = 0;
@@ -149,8 +164,8 @@ describe('DashButton', () => {
   });
 
   it(`removes packet listeners when a button has no more listeners`, () => {
-    let mockSession = createMockPcapSession();
-    pcap.createSession.mockReturnValue(mockSession);
+    let mockSession = pcap.createSession(NetworkInterfaces.getDefault());
+    pcap.createSession.mockReturnValueOnce(mockSession);
 
     let button = new DashButton(MAC_ADDRESS);
     let subscription1 = button.addListener(() => {});
@@ -164,8 +179,8 @@ describe('DashButton', () => {
   });
 
   it(`doesn't throw if you remove a subscription twice`, () => {
-    let mockSession = createMockPcapSession();
-    pcap.createSession.mockReturnValue(mockSession);
+    let mockSession = pcap.createSession(NetworkInterfaces.getDefault());
+    pcap.createSession.mockReturnValueOnce(mockSession);
 
     let button = new DashButton(MAC_ADDRESS);
     let subscription = button.addListener(() => {});
@@ -176,8 +191,8 @@ describe('DashButton', () => {
   });
 
   it(`closes the pcap session when no more buttons are listening`, () => {
-    let mockSession = createMockPcapSession();
-    pcap.createSession.mockReturnValue(mockSession);
+    let mockSession = pcap.createSession(NetworkInterfaces.getDefault());
+    pcap.createSession.mockReturnValueOnce(mockSession);
 
     let button1Listener = jest.genMockFunction();
     let button2Listener = jest.genMockFunction();
@@ -193,12 +208,6 @@ describe('DashButton', () => {
     expect(mockSession.close.mock.calls.length).toBe(1);
   });
 });
-
-function createMockPcapSession() {
-  let session = new events.EventEmitter();
-  session.close = jest.genMockFunction();
-  return session;
-}
 
 function createMockArpProbe(sourceMacAddress) {
   let decimals = sourceMacAddress.split(':').map(hex => parseInt(hex, 16));

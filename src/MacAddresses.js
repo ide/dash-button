@@ -1,7 +1,7 @@
 // @flow
 import padStart from 'lodash/padStart';
 
-let MacAddresses = {
+const MacAddresses = {
   getEthernetSource(packet): string {
     return MacAddresses.decimalToHex(packet.payload.shost.addr);
   },
