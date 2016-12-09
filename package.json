@@ -46,17 +46,17 @@
   },
   "homepage": "https://github.com/ide/dash-button#readme",
   "dependencies": {
-    "babel-runtime": "^6.11.6",
+    "babel-runtime": "^6.20.0",
     "lodash": "^4.17.0",
     "pcap": "mranney/node_pcap#d920204",
-    "yargs": "^6.4.0"
+    "yargs": "^6.5.0"
   },
   "devDependencies": {
-    "babel-core": "^6.18.2",
+    "babel-core": "^6.20.0",
     "babel-eslint": "^7.1.1",
     "babel-jest": "^17.0.0",
     "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-syntax-trailing-function-commas": "^6.13.0",
+    "babel-plugin-syntax-trailing-function-commas": "^6.20.0",
     "babel-plugin-transform-async-to-generator": "^6.4.6",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.14.0",
     "babel-plugin-transform-flow-strip-types": "^6.14.0",
