@@ -16,6 +16,7 @@ dependencies:
 test:
   pre:
     - yarn run lint
+    - yarn run flow -- check
   override:
     - yarn test -- --coverage
   post:

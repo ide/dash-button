@@ -1,5 +1,4 @@
 import assert from 'assert';
-import events from 'events';
 
 jest.mock('pcap');
 jest.mock('../NetworkInterfaces');
