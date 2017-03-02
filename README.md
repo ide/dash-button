@@ -18,7 +18,7 @@ Dash Button is designed to run on a Raspberry Pi. Specifically, it runs on [Rasp
 
 ## Installation and Setup
 
-Dash Button runs on Node 6 and up on macOS and Linux. It depends on [libpcap](http://www.tcpdump.org/):
+Dash Button runs on Node 8 and up on macOS and Linux. It depends on [libpcap](http://www.tcpdump.org/):
 
 **Note:** When Node 8 is released, Dash Button will make a major semver change (3.x) and rely on Node 8's features like async functions.
 
@@ -35,9 +35,7 @@ Install Dash Button in your project using npm:
 npm install --save dash-button
 ```
 
-You will need to configure Dash Button with the MAC address of each of your Dash buttons, plus code to run when you press them.
-
-The examples here use ES2017. You can run them with Babel configured for ES2017 or just manually translate the code to whatever programming language you like as long as it runs on Node.
+You will need to configure Dash Button with the MAC address of each of your Dash buttons, plus code to run when you press them. The examples here use ES2017.
 
 ### Setting Up Your Dash Button
 
