@@ -20,6 +20,8 @@ Dash Button is designed to run on a Raspberry Pi. Specifically, it runs on [Rasp
 
 Dash Button runs on Node 6 and up on macOS and Linux. It depends on [libpcap](http://www.tcpdump.org/):
 
+**Note:** When Node 8 is released, Dash Button will make a major semver change (3.x) and rely on Node 8's features like async functions.
+
 ```sh
 # Ubuntu and Debian
 sudo apt-get install libpcap-dev
