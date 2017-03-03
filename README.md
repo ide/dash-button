@@ -1,7 +1,5 @@
 # Dash Button for Node [![Circle CI](https://circleci.com/gh/ide/dash-button.svg?style=svg)](https://circleci.com/gh/ide/dash-button) [![codecov](https://codecov.io/gh/ide/dash-button/branch/master/graph/badge.svg)](https://codecov.io/gh/ide/dash-button) [![npm version](https://badge.fury.io/js/dash-button.svg)](http://badge.fury.io/js/dash-button)
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/ide/dash-button.svg)](https://greenkeeper.io/)
-
 Dash Button is a small Node server that reacts to Amazon Dash buttons on your WiFi network. You can write event handlers that Dash Button will run when it detects someone has pressed your Dash button.
 
 Dash Button is designed to run on a Raspberry Pi. Specifically, it runs on [Raspbian](https://www.raspbian.org/) (Jessie or newer) and supports modern Node.js.
