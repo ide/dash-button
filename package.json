@@ -48,7 +48,6 @@
   "homepage": "https://github.com/ide/dash-button#readme",
   "dependencies": {
     "babel-runtime": "^6.23.0",
-    "lodash": "^4.17.0",
     "nullthrows": "^1.0.0",
     "pcap": "mranney/node_pcap#b4eb828",
     "yargs": "^8.0.2"

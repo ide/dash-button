@@ -1,5 +1,4 @@
 // @flow
-import padStart from 'lodash/padStart';
 
 const MacAddresses = {
   getEthernetSource(packet: *): string {
@@ -8,9 +7,7 @@ const MacAddresses = {
 
   decimalToHex(numbers: Number[]): string {
     let hexStrings = numbers.map(decimal =>
-      // TODO: Use String.prototype.padStart when Node natively supports it, and
-      // increment the major semver version
-      padStart(decimal.toString(16), 2, '0'),
+      decimal.toString(16).padStart(2, '0'),
     );
     return hexStrings.join(':');
   },
