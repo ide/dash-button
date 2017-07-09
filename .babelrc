@@ -4,6 +4,6 @@
     "syntax-trailing-function-commas",
     "transform-es2015-modules-commonjs",
     "transform-flow-strip-types",
-    "transform-runtime",
+    ["transform-runtime", { "polyfill": false }],
   ],
 }
