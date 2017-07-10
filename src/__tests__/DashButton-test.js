@@ -27,7 +27,7 @@ describe('DashButton', () => {
     let button = new DashButton(MAC_ADDRESS);
     button.addListener(() => {});
 
-    expect(pcap.createSession.mock.calls.length).toBe(1);
+    expect(pcap.createSession).toHaveBeenCalledTimes(1);
   });
 
   it(`shares pcap sessions amongst buttons`, () => {
@@ -37,14 +37,14 @@ describe('DashButton', () => {
     let button2 = new DashButton('66:77:88:99:aa:bb');
     button2.addListener(() => {});
 
-    expect(pcap.createSession.mock.calls.length).toBe(1);
+    expect(pcap.createSession).toHaveBeenCalledTimes(1);
   });
 
   it(`creates a pcap session on the default interface`, () => {
     let button = new DashButton(MAC_ADDRESS);
     button.addListener(() => {});
 
-    expect(pcap.createSession.mock.calls.length).toBe(1);
+    expect(pcap.createSession).toHaveBeenCalledTimes(1);
     expect(pcap.createSession.mock.calls[0][0]).toBe(NETWORK_INTERFACE);
   });
 
@@ -52,7 +52,7 @@ describe('DashButton', () => {
     let button = new DashButton(MAC_ADDRESS, { networkInterface: 'wlan0' });
     button.addListener(() => {});
 
-    expect(pcap.createSession.mock.calls.length).toBe(1);
+    expect(pcap.createSession).toHaveBeenCalledTimes(1);
     expect(pcap.createSession.mock.calls[0][0]).toBe('wlan0');
   });
 
@@ -70,13 +70,13 @@ describe('DashButton', () => {
 
     let packet1 = createMockArpProbe(MAC_ADDRESS);
     mockSession.emit('packet', packet1);
-    expect(button1Listener.mock.calls.length).toBe(1);
-    expect(button2Listener.mock.calls.length).toBe(0);
+    expect(button1Listener).toHaveBeenCalledTimes(1);
+    expect(button2Listener).not.toHaveBeenCalled();
 
     let packet2 = createMockArpProbe('66:77:88:99:aa:bb');
     mockSession.emit('packet', packet2);
-    expect(button1Listener.mock.calls.length).toBe(1);
-    expect(button2Listener.mock.calls.length).toBe(1);
+    expect(button1Listener).toHaveBeenCalledTimes(1);
+    expect(button2Listener).toHaveBeenCalledTimes(1);
   });
 
   it(`waits for listeners for a prior packet to asynchronously complete ` +
@@ -110,6 +110,9 @@ describe('DashButton', () => {
     let mockSession = pcap.createSession(NetworkInterfaces.getDefault());
     pcap.createSession.mockReturnValueOnce(mockSession);
 
+    let originalConsole = global.console;
+    global.console = require.requireMock('console');
+
     let button = new DashButton(MAC_ADDRESS);
     let errorCount = 0;
     button.addListener(() => {
@@ -135,10 +138,28 @@ describe('DashButton', () => {
 
     let packet = createMockArpProbe(MAC_ADDRESS);
     expect(listenerPromise).not.toBeDefined();
+    expect(console.error).not.toHaveBeenCalled();
+
     mockSession.emit('packet', packet);
     expect(listenerPromise).toBeDefined();
     let result = await listenerPromise;
     expect(result).toBe('success');
+
+    // TODO: Define a public interface to learn when the DashButton is done
+    // handling a packet
+    while (button._isResponding) {
+      await Promise.resolve();
+    }
+
+    expect(console.error).toHaveBeenCalledTimes(2);
+    expect(console.error.mock.calls[0][0]).toEqual(
+      expect.stringContaining('Intentional sync error'),
+    );
+    expect(console.error.mock.calls[1][0]).toEqual(
+      expect.stringContaining('Intentional async error'),
+    );
+
+    global.console = originalConsole;
   });
 
   it(`runs its async listeners concurrently`, () => {
@@ -202,9 +223,9 @@ describe('DashButton', () => {
     let subscription2 = button2.addListener(button2Listener);
 
     subscription1.remove();
-    expect(mockSession.close.mock.calls.length).toBe(0);
+    expect(mockSession.close).not.toHaveBeenCalled();
     subscription2.remove();
-    expect(mockSession.close.mock.calls.length).toBe(1);
+    expect(mockSession.close).toHaveBeenCalledTimes(1);
   });
 });
 

@@ -102,8 +102,7 @@ export default class DashButton {
       );
       for (let error of errors) {
         if (error) {
-          // TODO: Figure out how to mock `console` with Jest
-          // console.error(`Listener threw an uncaught error:\n${error.stack}`);
+          console.error(`Listener threw an uncaught error:\n${error.stack}`);
         }
       }
     } finally {
