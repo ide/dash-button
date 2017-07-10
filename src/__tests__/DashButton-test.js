@@ -207,7 +207,7 @@ describe('DashButton', () => {
 
     subscription.remove();
     expect(mockSession.listenerCount('packet')).toBe(0);
-    expect(() => subscription.remove).not.toThrow();
+    expect(() => subscription.remove()).not.toThrow();
   });
 
   it(`closes the pcap session when no more buttons are listening`, () => {
