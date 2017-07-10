@@ -16,7 +16,7 @@
     "build": "gulp build",
     "flow": "flow",
     "lint": "eslint src",
-    "prepublish": "gulp clean && gulp build",
+    "prepare": "gulp clean && gulp build",
     "start": "node build/cli.js",
     "test": "jest",
     "watch": "gulp watch"
