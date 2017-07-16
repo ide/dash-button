@@ -23,6 +23,12 @@ describe('DashButton', () => {
     jest.resetModules();
   });
 
+  it(`should normalize (lowercase) the dash buttons Mac Address`, () => {
+    let button = new DashButton('00:11:AA:33:44:BB');
+
+    expect(button._macAddress).toEqual('00:11:aa:33:44:bb');
+  });
+
   it(`creates a pcap session the first time a listener is added`, () => {
     let button = new DashButton(MAC_ADDRESS);
     button.addListener(() => {});

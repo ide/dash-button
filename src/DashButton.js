@@ -37,7 +37,7 @@ export default class DashButton {
   _isResponding: boolean;
 
   constructor(macAddress: string, options: DashButtonOptions = {}) {
-    this._macAddress = macAddress;
+    this._macAddress = macAddress.toLowerCase();
     this._networkInterface = options.networkInterface ||
       nullthrows(NetworkInterfaces.getDefault());
     this._packetListener = this._handlePacket.bind(this);
