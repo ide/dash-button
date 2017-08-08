@@ -68,7 +68,7 @@ sudo npm run scan -- --interface en1
 Once you know your Dash button's MAC address you need to tell Dash Button about it:
 
 ```js
-import DashButton from 'dash-button';
+const DashButton = require('dash-button');
 
 const DASH_BUTTON_MAC_ADDRESS = 'xx:xx:xx:xx:xx:xx';
 
