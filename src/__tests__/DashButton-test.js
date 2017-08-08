@@ -79,8 +79,7 @@ describe('DashButton', () => {
     expect(button2Listener).toHaveBeenCalledTimes(1);
   });
 
-  it(`waits for listeners for a prior packet to asynchronously complete ` +
-     `before handling any new packets`, async () => {
+  it(`waits for listeners for a prior packet to asynchronously complete before handling any new packets`, async () => {
     let mockSession = pcap.createSession(NetworkInterfaces.getDefault());
     let listenerCompletion = null;
     let originalAddListener = mockSession.addListener;
@@ -93,7 +92,9 @@ describe('DashButton', () => {
 
     let button = new DashButton(MAC_ADDRESS);
     let calls = 0;
-    button.addListener(() => { calls++; });
+    button.addListener(() => {
+      calls++;
+    });
 
     let packet = createMockArpProbe(MAC_ADDRESS);
     mockSession.emit('packet', packet);
@@ -153,10 +154,10 @@ describe('DashButton', () => {
 
     expect(console.error).toHaveBeenCalledTimes(2);
     expect(console.error.mock.calls[0][0]).toEqual(
-      expect.stringContaining('Intentional sync error'),
+      expect.stringContaining('Intentional sync error')
     );
     expect(console.error.mock.calls[1][0]).toEqual(
-      expect.stringContaining('Intentional async error'),
+      expect.stringContaining('Intentional async error')
     );
 
     global.console = originalConsole;
@@ -235,13 +236,15 @@ function createMockArpProbe(sourceMacAddress) {
 
   return {
     link_type: 'LINKTYPE_ETHERNET',
-    header: new Buffer([
+    // prettier-ignore
+    header: Buffer.from([
       249, 133,  27,  86,  // Seconds
       137, 239,   1,   0,  // Microseconds
        42,   0,   0,   0,  // Captured length
        42,   0,   0,   0,  // Total length
     ]),
-    buf: new Buffer([
+    // prettier-ignore
+    buf: Buffer.from([
       255, 255, 255, 255, 255, 255,  // Destination MAC address
       ...decimals,                   // Source MAC address
         8,   6,  // EtherType (0x0806 = ARP)

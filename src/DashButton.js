@@ -22,8 +22,9 @@ function getPcapSession(interfaceName: string) {
     pcapSession = Packets.createCaptureSession(interfaceName);
   } else {
     assert.equal(
-      interfaceName, pcapSession.device_name,
-      'The existing pcap session must be listening on the specified interface',
+      interfaceName,
+      pcapSession.device_name,
+      'The existing pcap session must be listening on the specified interface'
     );
   }
   return pcapSession;
@@ -38,8 +39,7 @@ export default class DashButton {
 
   constructor(macAddress: string, options: DashButtonOptions = {}) {
     this._macAddress = macAddress;
-    this._networkInterface = options.networkInterface ||
-      nullthrows(NetworkInterfaces.getDefault());
+    this._networkInterface = options.networkInterface || nullthrows(NetworkInterfaces.getDefault());
     this._packetListener = this._handlePacket.bind(this);
     this._dashListeners = new Set();
     this._isResponding = false;
@@ -69,9 +69,7 @@ export default class DashButton {
     });
   }
 
-  _createGuardedListener(
-    listener: (...args: *[]) => void | Promise<void>,
-  ): GuardedListener {
+  _createGuardedListener(listener: (...args: *[]) => void | Promise<void>): GuardedListener {
     return async (...args: *[]): Promise<?Error> => {
       try {
         await listener(...args);
@@ -97,9 +95,7 @@ export default class DashButton {
       // The listeners are guarded so this should never throw, but wrap it in
       // try-catch to be defensive
       let listeners = Array.from(this._dashListeners);
-      let errors = await Promise.all(
-        listeners.map(listener => listener(packet)),
-      );
+      let errors = await Promise.all(listeners.map(listener => listener(packet)));
       for (let error of errors) {
         if (error) {
           console.error(`Listener threw an uncaught error:\n${error.stack}`);

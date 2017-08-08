@@ -12,7 +12,7 @@ if (require.main === module) {
     .command('scan', 'Scan for DHCP requests and ARP probes')
     .example(
       '$0 scan -i wlan0',
-      'Scan for DHCP requests and ARP probes on the given network interface',
+      'Scan for DHCP requests and ARP probes on the given network interface'
     )
     .help()
     .alias('h', 'help')
