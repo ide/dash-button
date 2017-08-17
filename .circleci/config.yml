@@ -1,0 +1,40 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/dash-button
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - run:
+          name: Install apt Packages
+          command: sudo apt-get --yes install libpcap-dev
+      - run:
+          name: Install Yarn
+          command: curl -o- -L https://yarnpkg.com/install.sh | bash
+      - restore_cache:
+          key: yarn-cache
+      - run:
+          name: Install npm Packages
+          command: yarn
+      - save_cache:
+          key: yarn-cache
+          paths:
+            - ~/.cache/yarn
+      - run:
+          name: Lint
+          command: yarn lint
+      - run:
+          name: Run Flow Checks
+          command: yarn flow -- check
+      - run:
+          name: Run Tests
+          command: yarn test -- --coverage
+      - run:
+          name: Install Codecov
+          command: |
+            sudo chmod a+rwx $(yarn global bin)
+            yarn global add codecov
+      - run:
+          name: Upload results to Codecov
+          command: codecov
