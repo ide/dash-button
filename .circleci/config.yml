@@ -13,7 +13,7 @@ jobs:
           key: yarn-cache
       - run:
           name: Install npm Packages
-          command: yarn
+          command: yarn --pure-lockfile
       - save_cache:
           key: yarn-cache
           paths:
