@@ -10,12 +10,12 @@ jobs:
           name: Install apt Packages
           command: sudo apt-get --yes install libpcap-dev
       - restore_cache:
-          key: yarn-cache
+          key: v1-yarn-cache
       - run:
           name: Install npm Packages
           command: yarn --pure-lockfile
       - save_cache:
-          key: yarn-cache
+          key: v1-yarn-cache
           paths:
             - ~/.cache/yarn
       - run:
