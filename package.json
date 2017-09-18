@@ -50,7 +50,7 @@
     "babel-runtime": "^6.26.0",
     "nullthrows": "^1.0.0",
     "pcap": "mranney/node_pcap#b4eb828",
-    "yargs": "^8.0.2"
+    "yargs": "^9.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
