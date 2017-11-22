@@ -49,7 +49,7 @@
   "dependencies": {
     "babel-runtime": "^6.26.0",
     "nullthrows": "^1.0.0",
-    "pcap": "mranney/node_pcap#b4eb828",
+    "pcap": "git+https://github.com/mranney/node_pcap.git#b4eb828",
     "yargs": "^10.0.3"
   },
   "devDependencies": {
