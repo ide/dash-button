@@ -65,7 +65,7 @@
     "eslint-config-universe": "^1.0.6",
     "flow-bin": "^0.71.0",
     "gulp": "gulpjs/gulp#4.0",
-    "gulp-babel": "^7.0.0",
+    "gulp-babel": "^8.0.0",
     "gulp-changed": "^3.1.1",
     "jest": "^22.0.5",
     "prettier": "^1.8.2",
