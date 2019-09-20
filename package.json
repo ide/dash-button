@@ -13,20 +13,15 @@
     "node": ">=8.3"
   },
   "scripts": {
-    "build": "gulp build",
-    "flow": "flow",
+    "build": "tsc",
+    "clean": "rm -rf build",
     "lint": "eslint src",
-    "prepare": "gulp clean && gulp build",
+    "prepare": "rm -rf build && tsc",
     "start": "node build/cli.js",
     "test": "jest",
-    "watch": "gulp watch"
+    "watch": "tsc --watch"
   },
   "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "node"
-    ],
     "roots": [
       "<rootDir>/src"
     ]
@@ -47,28 +42,21 @@
   },
   "homepage": "https://github.com/ide/dash-button#readme",
   "dependencies": {
-    "babel-runtime": "^6.26.0",
-    "nullthrows": "^1.0.0",
-    "pcap": "git+https://github.com/mranney/node_pcap.git#b4eb828",
-    "yargs": "^11.0.0"
+    "nullthrows": "^1.1.1",
+    "pcap": "^2.1.0",
+    "yargs": "^14.0.0"
   },
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-eslint": "^8.0.1",
-    "babel-jest": "^22.0.0",
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
-    "babel-plugin-transform-flow-strip-types": "^6.22.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "eslint": "^4.11.0",
-    "eslint-config-universe": "^1.0.6",
-    "flow-bin": "^0.71.0",
-    "gulp": "gulpjs/gulp#4.0",
-    "gulp-babel": "^7.0.0",
-    "gulp-changed": "^3.1.1",
-    "jest": "^22.0.5",
-    "prettier": "^1.8.2",
-    "rimraf": "^2.6.1"
+    "@babel/core": "^7.6.0",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/preset-env": "^7.6.0",
+    "@babel/preset-typescript": "^7.6.0",
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.5",
+    "@types/yargs": "^13.0.2",
+    "babel-jest": "^25.0.0",
+    "jest": "^25.0.0",
+    "prettier": "^1.18.2",
+    "typescript": "^3.6.3"
   }
 }

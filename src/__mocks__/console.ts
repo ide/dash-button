@@ -5,9 +5,7 @@ const ActualConsole = require.requireActual('console').Console;
 class Console {
   static Console = Console;
 
-  constructor() {
-    this._silentConsole = new ActualConsole(new NullWritableStream());
-  }
+  _silentConsole = new ActualConsole(new NullWritableStream());
 
   log = jest.fn((...args) => this._silentConsole.log(...args));
   info = jest.fn((...args) => this._silentConsole.info(...args));
@@ -21,7 +19,7 @@ class Console {
 }
 
 class NullWritableStream extends Writable {
-  _write(chunk, encoding, callback) {
+  _write(_chunk, _encoding, callback) {
     callback();
   }
 }

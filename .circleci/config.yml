@@ -3,19 +3,19 @@ jobs:
   build:
     working_directory: ~/dash-button
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:10
     steps:
       - checkout
       - run:
           name: Install apt Packages
           command: sudo apt-get --yes install libpcap-dev
       - restore_cache:
-          key: v1-yarn-cache
+          key: v2-yarn-cache
       - run:
           name: Install npm Packages
           command: yarn --pure-lockfile
       - save_cache:
-          key: v1-yarn-cache
+          key: v2-yarn-cache
           paths:
             - ~/.cache/yarn
       - run:

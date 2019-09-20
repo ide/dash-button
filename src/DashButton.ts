@@ -1,11 +1,10 @@
-// @flow
 import assert from 'assert';
 import nullthrows from 'nullthrows';
 import pcap from 'pcap';
 
-import MacAddresses from './MacAddresses';
-import NetworkInterfaces from './NetworkInterfaces';
-import Packets from './Packets';
+import * as MacAddresses from './MacAddresses';
+import * as NetworkInterfaces from './NetworkInterfaces';
+import * as Packets from './Packets';
 
 export type DashButtonOptions = {
   networkInterface?: string,
@@ -13,9 +12,9 @@ export type DashButtonOptions = {
 
 export type DashButtonListener = (packet: Object) => void | Promise<void>;
 
-type GuardedListener = (packet: Object) => Promise<?Error>;
+type GuardedListener = (packet: Object) => Promise<Error | undefined>;
 
-let pcapSession;
+let pcapSession: any;
 
 function getPcapSession(interfaceName: string) {
   if (!pcapSession) {
@@ -30,10 +29,10 @@ function getPcapSession(interfaceName: string) {
   return pcapSession;
 }
 
-export default class DashButton {
+export class DashButton {
   _macAddress: string;
   _networkInterface: string;
-  _packetListener: Function;
+  _packetListener: (rawPacket: unknown) => void;
   _dashListeners: Set<GuardedListener>;
   _isResponding: boolean;
 
@@ -51,9 +50,9 @@ export default class DashButton {
       session.addListener('packet', this._packetListener);
     }
 
-    // We run the listeners with Promise.all, which rejects early as soon as
-    // any of its promises are rejected. Since we want to wait for all of the
-    // listeners to finish we need to catch any errors they may throw.
+    // We run the listeners with Promise.all, which rejects early as soon as any of its promises are
+    // rejected. Since we want to wait for all of the listeners to finish we need to catch any
+    // errors they may throw.
     let guardedListener = this._createGuardedListener(listener);
     this._dashListeners.add(guardedListener);
 
@@ -69,17 +68,18 @@ export default class DashButton {
     });
   }
 
-  _createGuardedListener(listener: (...args: *[]) => void | Promise<void>): GuardedListener {
-    return async (...args: *[]): Promise<?Error> => {
+  _createGuardedListener(listener: (...args: any[]) => void | Promise<void>): GuardedListener {
+    return async (...args: any[]): Promise<Error | undefined> => {
       try {
         await listener(...args);
+        return undefined;
       } catch (error) {
         return error;
       }
     };
   }
 
-  async _handlePacket(rawPacket: Object): Promise<void> {
+  async _handlePacket(rawPacket: unknown): Promise<void> {
     if (this._isResponding) {
       return;
     }
@@ -92,8 +92,8 @@ export default class DashButton {
 
     this._isResponding = true;
     try {
-      // The listeners are guarded so this should never throw, but wrap it in
-      // try-catch to be defensive
+      // The listeners are guarded so this should never throw, but wrap it in try-catch to be
+      // defensive
       let listeners = Array.from(this._dashListeners);
       let errors = await Promise.all(listeners.map(listener => listener(packet)));
       for (let error of errors) {

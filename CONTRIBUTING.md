@@ -4,13 +4,13 @@ This is how the Dash Button code is organized, so you can understand where to ma
 
 ## Source Code
 
-The source files are under `src` and are written using modern JavaScript and [Flow](https://flowtype.org/).
+The source files are under `src` and are written using TypeScript.
 
 ## Building
 
-The source files are compiled with [Babel](https://babeljs.io/) to a version of JavaScript that Node.js understands. These compiled files go in a directory called `build`, which is not committed to Git but is published to npm.
+The source files are compiled with `tsc` to a version of JavaScript that Node.js understands. These compiled files go in a directory called `build`, which is not committed to Git but is published to npm.
 
-We use [Gulp 4](https://github.com/gulpjs/gulp/tree/4.0) to run Babel. The easiest way to run Gulp is to run `npm run build` or `npm run watch`. Both of these compile the JavaScript in `src` and output it in `build`, but the `watch` command will keep watching your filesystem for any changes and compile files when you save them. It's recommended when you are developing.
+The easiest way to run `tsc` is to run `npm run build` or `npm run watch`. Both of these compile the TypeScript in `src` and output it in `build`, but the `watch` command will keep watching your filesystem for any changes and compile files when you save them. It's recommended when you are developing.
 
 ## Testing
 

@@ -12,8 +12,8 @@ describe('DashButton', () => {
   let NetworkInterfaces;
 
   beforeEach(() => {
-    pcap = require('pcap');
-    DashButton = require('../DashButton');
+    pcap = require('pcap').default;
+    DashButton = require('../DashButton').DashButton;
     NetworkInterfaces = require('../NetworkInterfaces');
 
     NetworkInterfaces.getDefault.mockReturnValue(NETWORK_INTERFACE);
@@ -23,20 +23,20 @@ describe('DashButton', () => {
     jest.resetModules();
   });
 
-  it(`should normalize (lowercase) the dash buttons MAC address`, () => {
+  test(`should normalize (lowercase) the dash buttons MAC address`, () => {
     let button = new DashButton('00:11:AA:33:44:BB');
 
     expect(button._macAddress).toEqual('00:11:aa:33:44:bb');
   });
 
-  it(`creates a pcap session the first time a listener is added`, () => {
+  test(`creates a pcap session the first time a listener is added`, () => {
     let button = new DashButton(MAC_ADDRESS);
     button.addListener(() => {});
 
     expect(pcap.createSession).toHaveBeenCalledTimes(1);
   });
 
-  it(`shares pcap sessions amongst buttons`, () => {
+  test(`shares pcap sessions amongst buttons`, () => {
     let button1 = new DashButton(MAC_ADDRESS);
     button1.addListener(() => {});
 
@@ -46,7 +46,7 @@ describe('DashButton', () => {
     expect(pcap.createSession).toHaveBeenCalledTimes(1);
   });
 
-  it(`creates a pcap session on the default interface`, () => {
+  test(`creates a pcap session on the default interface`, () => {
     let button = new DashButton(MAC_ADDRESS);
     button.addListener(() => {});
 
@@ -54,7 +54,7 @@ describe('DashButton', () => {
     expect(pcap.createSession.mock.calls[0][0]).toBe(NETWORK_INTERFACE);
   });
 
-  it(`creates a pcap session on the specified interface`, () => {
+  test(`creates a pcap session on the specified interface`, () => {
     let button = new DashButton(MAC_ADDRESS, { networkInterface: 'wlan0' });
     button.addListener(() => {});
 
@@ -62,12 +62,12 @@ describe('DashButton', () => {
     expect(pcap.createSession.mock.calls[0][0]).toBe('wlan0');
   });
 
-  it(`notifies the appropriate listeners for each packet`, () => {
+  test(`notifies the appropriate listeners for each packet`, () => {
     let mockSession = pcap.createSession(NetworkInterfaces.getDefault());
     pcap.createSession.mockReturnValueOnce(mockSession);
 
-    let button1Listener = jest.genMockFunction();
-    let button2Listener = jest.genMockFunction();
+    let button1Listener = jest.fn();
+    let button2Listener = jest.fn();
 
     let button1 = new DashButton(MAC_ADDRESS);
     button1.addListener(button1Listener);
@@ -85,7 +85,7 @@ describe('DashButton', () => {
     expect(button2Listener).toHaveBeenCalledTimes(1);
   });
 
-  it(`waits for listeners for a prior packet to asynchronously complete before handling any new packets`, async () => {
+  test(`waits for listeners for a prior packet to asynchronously complete before handling any new packets`, async () => {
     let mockSession = pcap.createSession(NetworkInterfaces.getDefault());
     let listenerCompletion = null;
     let originalAddListener = mockSession.addListener;
@@ -113,7 +113,7 @@ describe('DashButton', () => {
     expect(calls).toBe(2);
   });
 
-  it(`waits for all listeners even if some threw an error`, async () => {
+  test(`waits for all listeners even if some threw an error`, async () => {
     let mockSession = pcap.createSession(NetworkInterfaces.getDefault());
     pcap.createSession.mockReturnValueOnce(mockSession);
 
@@ -159,17 +159,17 @@ describe('DashButton', () => {
     }
 
     expect(console.error).toHaveBeenCalledTimes(2);
-    expect(console.error.mock.calls[0][0]).toEqual(
+    expect((console.error as jest.Mock).mock.calls[0][0]).toEqual(
       expect.stringContaining('Intentional sync error')
     );
-    expect(console.error.mock.calls[1][0]).toEqual(
+    expect((console.error as jest.Mock).mock.calls[1][0]).toEqual(
       expect.stringContaining('Intentional async error')
     );
 
     global.console = originalConsole;
   });
 
-  it(`runs its async listeners concurrently`, () => {
+  test(`runs its async listeners concurrently`, () => {
     let mockSession = pcap.createSession(NetworkInterfaces.getDefault());
     pcap.createSession.mockReturnValueOnce(mockSession);
 
@@ -190,7 +190,7 @@ describe('DashButton', () => {
     expect(calls).toBe(2);
   });
 
-  it(`removes packet listeners when a button has no more listeners`, () => {
+  test(`removes packet listeners when a button has no more listeners`, () => {
     let mockSession = pcap.createSession(NetworkInterfaces.getDefault());
     pcap.createSession.mockReturnValueOnce(mockSession);
 
@@ -205,7 +205,7 @@ describe('DashButton', () => {
     expect(mockSession.listenerCount('packet')).toBe(0);
   });
 
-  it(`doesn't throw if you remove a subscription twice`, () => {
+  test(`doesn't throw if you remove a subscription twice`, () => {
     let mockSession = pcap.createSession(NetworkInterfaces.getDefault());
     pcap.createSession.mockReturnValueOnce(mockSession);
 
@@ -217,12 +217,12 @@ describe('DashButton', () => {
     expect(() => subscription.remove()).not.toThrow();
   });
 
-  it(`closes the pcap session when no more buttons are listening`, () => {
+  test(`closes the pcap session when no more buttons are listening`, () => {
     let mockSession = pcap.createSession(NetworkInterfaces.getDefault());
     pcap.createSession.mockReturnValueOnce(mockSession);
 
-    let button1Listener = jest.genMockFunction();
-    let button2Listener = jest.genMockFunction();
+    let button1Listener = jest.fn();
+    let button2Listener = jest.fn();
 
     let button1 = new DashButton(MAC_ADDRESS);
     let subscription1 = button1.addListener(button1Listener);

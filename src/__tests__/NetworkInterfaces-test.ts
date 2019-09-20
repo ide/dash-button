@@ -1,12 +1,12 @@
 import os from 'os';
 
-import NetworkInterfaces from '../NetworkInterfaces';
+import * as NetworkInterfaces from '../NetworkInterfaces';
 
 jest.mock('os');
 
 describe('NetworkInterfaces', () => {
-  it(`returns null if it can't find an external interface`, () => {
-    os.networkInterfaces.mockImplementation(() => {
+  test(`returns null if it can't find an external interface`, () => {
+    (os.networkInterfaces as jest.Mock).mockImplementation(() => {
       return { lo0: loopbackInterfaces };
     });
 
@@ -14,8 +14,8 @@ describe('NetworkInterfaces', () => {
     expect(interfaceName).toBe(null);
   });
 
-  it(`returns the first external interface it finds`, () => {
-    os.networkInterfaces.mockImplementation(() => {
+  test(`returns the first external interface it finds`, () => {
+    (os.networkInterfaces as jest.Mock).mockImplementation(() => {
       return { lo0: loopbackInterfaces, en0: wifiInterfaces };
     });
 

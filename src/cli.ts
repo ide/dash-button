@@ -2,9 +2,9 @@
 import pcap from 'pcap';
 import yargs from 'yargs';
 
-import MacAddresses from './MacAddresses';
-import NetworkInterfaces from './NetworkInterfaces';
-import Packets from './Packets';
+import * as MacAddresses from './MacAddresses';
+import * as NetworkInterfaces from './NetworkInterfaces';
+import * as Packets from './Packets';
 
 if (require.main === module) {
   let parser = yargs
@@ -29,7 +29,7 @@ if (require.main === module) {
   if (!commands.size) {
     parser.showHelp();
   } else if (commands.has('scan')) {
-    let interfaceName = argv.interface;
+    let interfaceName = argv.interface as string;
     let pcapSession = Packets.createCaptureSession(interfaceName);
     pcapSession.addListener('packet', rawPacket => {
       let packet = pcap.decode(rawPacket);
