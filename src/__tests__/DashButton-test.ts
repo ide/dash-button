@@ -160,10 +160,10 @@ describe('DashButton', () => {
 
     expect(console.error).toHaveBeenCalledTimes(2);
     expect((console.error as jest.Mock).mock.calls[0][0]).toEqual(
-      expect.stringContaining('Intentional sync error')
+      expect.stringContaining('Intentional sync error'),
     );
     expect((console.error as jest.Mock).mock.calls[1][0]).toEqual(
-      expect.stringContaining('Intentional async error')
+      expect.stringContaining('Intentional async error'),
     );
 
     global.console = originalConsole;
@@ -263,6 +263,6 @@ function createMockArpProbe(sourceMacAddress) {
         0,   0,   0,   0,            // SPA
         0,   0,   0,   0,   0,   0,  // THA
        10,   0,  10,  20,            // TPA
-    ]),
+    ])
   };
 }

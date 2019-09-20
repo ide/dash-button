@@ -7,7 +7,7 @@ import * as NetworkInterfaces from './NetworkInterfaces';
 import * as Packets from './Packets';
 
 export type DashButtonOptions = {
-  networkInterface?: string,
+  networkInterface?: string;
 };
 
 export type DashButtonListener = (packet: Object) => void | Promise<void>;
@@ -23,7 +23,7 @@ function getPcapSession(interfaceName: string) {
     assert.equal(
       interfaceName,
       pcapSession.device_name,
-      'The existing pcap session must be listening on the specified interface'
+      'The existing pcap session must be listening on the specified interface',
     );
   }
   return pcapSession;
