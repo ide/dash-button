@@ -913,6 +913,11 @@
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.3.tgz#bdfd69d61e464dcc81b25159c270d75a73c1a636"
   integrity sha512-Il2DtDVRGDcqjDtE+rF8iqg1CArehSK84HZJCT7AMITlyXRBpuPhqGLDQMowraqqu1coEaimg4ZOqggt6L6L+A==
 
+"@types/node@^10.0.0":
+  version "10.17.15"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.17.15.tgz#bfff4e23e9e70be6eec450419d51e18de1daf8e7"
+  integrity sha512-daFGV9GSs6USfPgxceDA8nlSe48XrVCJfDeYm7eokxq/ye7iuOH87hKXgMtEAVLFapkczbZsx868PMDT1Y0a6A==
+
 "@types/node@^12.7.5":
   version "12.7.5"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.7.5.tgz#e19436e7f8e9b4601005d73673b6dc4784ffcc2f"
@@ -3499,7 +3504,7 @@ mute-stream@0.0.7:
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
   integrity sha1-MHXOk7whuPq0PhvE2n6BFe0ee6s=
 
-nan@^2.0.9, nan@^2.12.1:
+nan@^2.12.1, nan@^2.14.0:
   version "2.14.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.0.tgz#7818f722027b2459a86f0295d434d1fc2336c52c"
   integrity sha512-INOFj37C7k3AfaNTtX8RhsTw7qRy7eLET14cROi9+5HAVbbHuIWUHEauBv5qT4Av2tWasiTY1Jw6puUNqRJXQg==
@@ -3962,13 +3967,13 @@ path-type@^3.0.0:
   dependencies:
     pify "^3.0.0"
 
-pcap@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/pcap/-/pcap-2.1.0.tgz#4504072591dcf06289e3b93bd5e55ffb9a22f25b"
-  integrity sha512-immYRefC8nWvfH0HbmB/O+8xcd5TsN+VzOusFY0BNpQtZXlKwZo/2AiZHAukcC41vcgVI7dUrBxQCsQc71NaOw==
+pcap@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/pcap/-/pcap-3.0.0.tgz#de961f777c13b85fd8c10b90ab148294c3db380c"
+  integrity sha512-GuJwWH+Irxxsvt9OeXzaq0+F1N22y3EHImrTrOYJNUWrnmIRlO8m/CQMlVZObm+TxpRV5dGHQNj5PromCXOwfQ==
   dependencies:
-    nan "^2.0.9"
-    socketwatcher "git+https://github.com/bytzdev/node-socketwatcher.git"
+    "@types/node" "^10.0.0"
+    nan "^2.14.0"
 
 performance-now@^2.1.0:
   version "2.1.0"
@@ -4548,12 +4553,6 @@ snapdragon@^0.8.1:
     source-map "^0.5.6"
     source-map-resolve "^0.5.0"
     use "^3.1.0"
-
-"socketwatcher@git+https://github.com/bytzdev/node-socketwatcher.git":
-  version "0.3.0"
-  resolved "git+https://github.com/bytzdev/node-socketwatcher.git#d252d3f8c45f565a0a48ebd155d4f9e4666798d9"
-  dependencies:
-    nan "^2.0.9"
 
 source-map-resolve@^0.5.0:
   version "0.5.2"
