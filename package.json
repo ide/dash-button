@@ -43,7 +43,7 @@
   "homepage": "https://github.com/ide/dash-button#readme",
   "dependencies": {
     "nullthrows": "^1.1.1",
-    "pcap": "^2.1.0",
+    "pcap": "^3.0.0",
     "yargs": "^14.0.0"
   },
   "devDependencies": {
