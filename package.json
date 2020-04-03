@@ -58,7 +58,7 @@
     "@typescript-eslint/parser": "^2.3.0",
     "babel-jest": "^25.0.0",
     "eslint": "^6.4.0",
-    "eslint-config-universe": "^2.0.0",
+    "eslint-config-universe": "^3.0.0",
     "jest": "^25.0.0",
     "prettier": "^1.18.2",
     "typescript": "^3.6.3"
